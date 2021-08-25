@@ -1,112 +1,53 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow strict-local
- */
+import React from 'react'
+import { View, Text, StyleSheet } from 'react-native'
+import { NavigationContainer } from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import HomeScreen from './src/screens/Home';
+import OrderScreen from './src/screens/Order';
+import StoreScreen from './src/screens/Store';
+import AccPointsScreen from './src/screens/AccumulatePoints';
+import OtherScreen from './src/screens/Other';
+import LogoTitle from './src/components/HeaderTitle';
 
-import React from 'react';
-import type {Node} from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
+// const Stack = createStackNavigator();
+const Tab = createBottomTabNavigator();
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
-
-const Section = ({children, title}): Node => {
-  const isDarkMode = useColorScheme() === 'dark';
+export default function App() {
   return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
+    <NavigationContainer>
+      <Tab.Navigator
+        screenOptions={({ route }) => ({
+          tabBarIcon: ({ focused, color, size }) => {
+            let iconName;
+
+            if (route.name === 'Home') {
+              iconName = focused ? 'home-sharp' : 'home-outline';
+            }
+            else if (route.name === 'Order') {
+              iconName = focused ? 'cart' : 'cart-outline';
+            }
+            else if (route.name === 'Store') {
+              iconName = focused ? 'cafe-sharp' : 'cafe-outline';
+            }
+            else if (route.name === 'AccPoints') {
+              iconName = focused ? 'wallet' : 'wallet-outline';
+            }
+            else if (route.name === 'Other') {
+              iconName = focused ? 'menu-sharp' : 'menu-outline';
+            }
+            return <Ionicons name={iconName} size={size} color={color} />;
           },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
-  );
-};
-
-const App: () => Node = () => {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
-
-  return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.js</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
-        </View>
-      </ScrollView>
-    </SafeAreaView>
-  );
-};
-
-const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-});
-
-export default App;
+          tabBarActiveTintColor: '#dc8e4e',
+          tabBarInactiveTintColor: '#848484',
+        })}
+      >
+        <Tab.Screen name="Home" component={HomeScreen} options={{ headerTitle: props => <LogoTitle {...props} /> }} />
+        <Tab.Screen name="Order" component={OrderScreen} options={{title: 'Dat hang'}} />
+        <Tab.Screen name="Store" component={StoreScreen} options={{title: 'Cua hang'}} />
+        <Tab.Screen name="AccPoints" component={AccPointsScreen} options={{title: 'Tich diem'}} />
+        <Tab.Screen name="Other" component={OtherScreen} options={{title: 'Khac'}} />
+      </Tab.Navigator>
+    </NavigationContainer>
+  )
+}
