@@ -2,19 +2,11 @@ import React from 'react'
 import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 
-export default function HeaderTitle() {
+export default function HeaderOder() {
     return (
         <View style={styles.header}>
             <View style={styles.headerLeft}>
-                <Image
-                    style={styles.image1}
-                    source={require('../assets/sun-cloudy-icon.png')}
-                />
                 <Text style={styles.headerText}>Chào bạn mới</Text>
-                <Image
-                    style={styles.image2}
-                    source={require('../assets/wave-hand-icon.png')}
-                />
             </View>
             <View style={styles.headerRight}>
                 <View>
@@ -43,21 +35,12 @@ const styles = StyleSheet.create({
     headerLeft: {
         flexDirection: "row",
     },
-    image1: {
-        width: 30,
-        height: 30,
-    },
     headerText: {
         fontWeight: 'bold',
         fontSize: 20,
         color: '#000',
         letterSpacing: 1,
         left: 10,
-    },
-    image2: {
-        left: 20,
-        width: 25,
-        height: 25,
     },
     headerRight: {
         flexDirection: 'row',

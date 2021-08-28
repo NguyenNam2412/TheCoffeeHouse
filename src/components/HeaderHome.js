@@ -2,7 +2,7 @@ import React from 'react'
 import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 
-export default function HeaderTitle() {
+export default function HeaderHome() {
     return (
         <View style={styles.header}>
             <View style={styles.headerLeft}>
