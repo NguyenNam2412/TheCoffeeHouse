@@ -8,7 +8,6 @@ export default function HeaderStore() {
     
     return (
         <View style={styles.content}>
-            <View style={styles.headersafe} />
             <View style={styles.header}>
                 <View style={styles.headerTop}>
                     <View style={styles.headerLeft}>

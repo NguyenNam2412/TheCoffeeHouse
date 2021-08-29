@@ -12,6 +12,7 @@ import LogoTitle from './src/components/HeaderHome'
 import OrderTitle from './src/components/HeaderOrder'
 import StoreTitle from './src/components/HeaderStore'
 import OtherTitle from './src/components/HeaderOther'
+import AccPointsTitle from './src/components/HeaderAccPoints'
 
 // const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -45,18 +46,46 @@ export default function App() {
           tabBarInactiveTintColor: '#848484',
         })}
       >
-        <Tab.Screen name="Home" component={HomeScreen} options={{title: 'Trang chủ' ,headerTitle: props => <LogoTitle {...props} /> }} />
-        <Tab.Screen name="Order" component={OrderScreen} options={{title: 'Đặt hàng' ,headerTitle: props => <OrderTitle {...props} />}} />
-        <Tab.Screen name="Store" 
-          component={StoreScreen} 
+        <Tab.Screen name="Home" 
+          component = {HomeScreen} 
+          options = {{
+            title: 'Trang chủ' ,
+            headerTitle: props => <LogoTitle {...props} /> 
+          }}
+        />
+        <Tab.Screen name="Order" 
+          component={OrderScreen} 
           options={{
+            title: 'Đặt hàng' ,
+            headerStyle: {
+                height: 120 
+              },
+            headerTitle: props => <OrderTitle {...props} />
+          }} 
+        />
+        <Tab.Screen name="Store" 
+          component = {StoreScreen} 
+          options = {{
             title: 'Cửa hàng' ,
             headerStyle: {
-              height: 115 
-            },
-            headerTitle: props => <StoreTitle {...props} />}} />
-        <Tab.Screen name="AccPoints" component={AccPointsScreen} options={{title: 'Tích điểm'}} />
-        <Tab.Screen name="Other" component={OtherScreen} options={{title: 'Khác' ,headerTitle: props => <OtherTitle {...props} />}} />
+                height: 115 
+              },
+            headerTitle: props => <StoreTitle {...props} />
+          }}
+        />
+        <Tab.Screen name = "AccPoints" 
+          component = {AccPointsScreen} 
+          options = {{title: 'Tích điểm',
+          headerTitle: props => <AccPointsTitle {...props} />
+          }}
+        />
+        <Tab.Screen name = "Other" 
+          component = {OtherScreen} 
+          options = {{
+            title: 'Khác' ,
+            headerTitle: props => <OtherTitle {...props} />
+          }} 
+        />
       </Tab.Navigator>
     </NavigationContainer>
   )
