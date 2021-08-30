@@ -1,7 +1,40 @@
 import React from 'react';
 import { View, Image, Text, StyleSheet, ScrollView, TouchableOpacity} from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import Swiper from 'react-native-swiper';
+import Swiper from 'react-native-swiper'
+
+const DATA = [
+	{
+		id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
+		title: 'First Item',
+		image: 'https://www.dungplus.com/wp-content/uploads/2019/12/girl-xinh-1-480x600.jpg'
+	},
+	{
+		id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
+		title: 'Second Item',
+		image: 'https://itcafe.vn/wp-content/uploads/2021/01/anh-gai-xinh-4.jpg'
+	},
+	{
+		id: '58694a0f-3da1-471f-bd96-145571e29d72',
+		title: 'Third Item',
+		image: 'https://ruthamcauquan2.info/wp-content/uploads/2020/07/anh-gai-xinh-hap-dan-nhieu-nam-gioi-6.jpg'
+	},
+	{
+		id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
+		title: 'First Item',
+		image: 'https://image-us.24h.com.vn/upload/2-2021/images/2021-05-14/anh-3-1620960414-197-width660height825.jpg'
+	},
+	{
+		id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
+		title: 'Second Item',
+		image: 'https://image-us.24h.com.vn/upload/2-2021/images/2021-05-14/anh-3-1620960414-197-width660height825.jpg'
+	},
+	{
+		id: '58694a0f-3da1-471f-bd96-145571e29d72',
+		title: 'Third Item',
+		image: 'https://image-us.24h.com.vn/upload/2-2021/images/2021-05-14/anh-3-1620960414-197-width660height825.jpg'
+	},
+];
 
 export default function Home() {
     return (
@@ -49,25 +82,54 @@ export default function Home() {
                         </View>
                     </View>
                     <View style={styles.box3}>
-                        <Swiper style={styles.wrapper} >
+                        <Swiper style={styles.wrapper} autoplay>
                             <View style={styles.slide1}>
-                                <Text style={styles.text}>Hello Swiper</Text>
+                                <Image
+                                    style={styles.imageSwiper}
+                                    source={require('../assets/coffee.jpg')}
+                                />
                             </View>
                             <View style={styles.slide2}>
-                                <Text style={styles.text}>Beautiful</Text>
+                                <Image
+                                    style={styles.imageSwiper}
+                                    source={require('../assets/coffee.jpg')}
+                                />
                             </View>
                             <View style={styles.slide3}>
-                                <Text style={styles.text}>And simple</Text>
+                                <Image
+                                    style={styles.imageSwiper}
+                                    source={require('../assets/coffee.jpg')}
+                                />
+                            </View>
+                            <View style={styles.slide4}>
+                                <Image
+                                    style={styles.imageSwiper}
+                                    source={require('../assets/coffee.jpg')}
+                                />
+                            </View>
+                            <View style={styles.slide5}>
+                                <Image
+                                    style={styles.imageSwiper}
+                                    source={require('../assets/coffee.jpg')}
+                                />
                             </View>
                         </Swiper>
                     </View>
                     <View style={styles.content}>
-                        
+                        <Text style={styles.textContent}>Khám phá thêm</Text>
+                        <View style={styles.headerBot}>
+                            <TouchableOpacity style={[styles.btnTap, styles.btnact]}>
+                                <Text style={styles.textTap, styles.btnact}>Ưu đãi đặc biệt</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity style={styles.btnTap}>
+                                <Text style={styles.textTap}>Cập nhập từ nhà</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity style={styles.btnTap}>
+                                <Text style={styles.textTap}>#CoffeeLover</Text>
+                            </TouchableOpacity>
+                        </View>
                     </View>
                 </View>
-            </View>
-            <View style={styles.safe}>
-                <Text style={styles.safetext}></Text>
             </View>
         </ScrollView>
     )
@@ -193,11 +255,11 @@ const styles = StyleSheet.create({
     },
     box3: {
         width: '90%',
-        height: 100,
+        height: 200,
         top: 50,
     },
     wrapper: {
-        
+        height: 150,
     },
     slide1: {
         flex: 1,
@@ -217,13 +279,38 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: '#92BBD9'
     },
-    text: {
-        color: '#fff',
-        fontSize: 30,
-        fontWeight: 'bold'
-    },
     content: {
         width: '100%',
         height: 1000,
+        borderWidth: 1,
+        top: 50
+    },
+    textContent: {
+        color: '#000',
+        fontWeight: 'bold',
+        fontSize: 20,
+        margin: 15
+    },
+    headerBot: {
+        flexDirection: 'row',
+        left: 5,
+    },
+    btnTap: {
+        width: 130,
+        height:40,
+        left: 5,
+        borderRadius: 20,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    textTap: {
+        fontWeight: 'bold',
+        fontSize: 15,
+    },
+    btnact: {
+        backgroundColor:'#f5f5f5', 
+        color:'#e47905',
+        fontWeight: 'bold',
+        fontSize: 15,
     },
 })

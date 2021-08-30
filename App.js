@@ -68,14 +68,18 @@ export default function App() {
           options = {{
             title: 'Cửa hàng' ,
             headerStyle: {
-                height: 115 
+                height: 120 
               },
             headerTitle: props => <StoreTitle {...props} />
           }}
         />
         <Tab.Screen name = "AccPoints" 
           component = {AccPointsScreen} 
-          options = {{title: 'Tích điểm',
+          options = {{
+            title: 'Tích điểm',
+            headerStyle: {
+                  height: 110 
+                },
           headerTitle: props => <AccPointsTitle {...props} />
           }}
         />
