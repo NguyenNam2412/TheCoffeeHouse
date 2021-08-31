@@ -1,42 +1,52 @@
-import React from 'react';
-import { View, Image, Text, StyleSheet, ScrollView, TouchableOpacity} from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { View, Image, Text, StyleSheet, ScrollView, TouchableOpacity, Dimensions ,FlatList} from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Swiper from 'react-native-swiper'
-
-const DATA = [
-	{
-		id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-		title: 'First Item',
-		image: 'https://www.dungplus.com/wp-content/uploads/2019/12/girl-xinh-1-480x600.jpg'
-	},
-	{
-		id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
-		title: 'Second Item',
-		image: 'https://itcafe.vn/wp-content/uploads/2021/01/anh-gai-xinh-4.jpg'
-	},
-	{
-		id: '58694a0f-3da1-471f-bd96-145571e29d72',
-		title: 'Third Item',
-		image: 'https://ruthamcauquan2.info/wp-content/uploads/2020/07/anh-gai-xinh-hap-dan-nhieu-nam-gioi-6.jpg'
-	},
-	{
-		id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-		title: 'First Item',
-		image: 'https://image-us.24h.com.vn/upload/2-2021/images/2021-05-14/anh-3-1620960414-197-width660height825.jpg'
-	},
-	{
-		id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
-		title: 'Second Item',
-		image: 'https://image-us.24h.com.vn/upload/2-2021/images/2021-05-14/anh-3-1620960414-197-width660height825.jpg'
-	},
-	{
-		id: '58694a0f-3da1-471f-bd96-145571e29d72',
-		title: 'Third Item',
-		image: 'https://image-us.24h.com.vn/upload/2-2021/images/2021-05-14/anh-3-1620960414-197-width660height825.jpg'
-	},
-];
+import axios from 'axios'
+import { getImage } from '../utils'
+import { getProductList } from '../services/Api'
 
 export default function Home() {
+
+    const [product, setProduct] = useState([])
+
+    useEffect(() => {
+		const callGetProductList = async () => {
+			try {
+				const response = await getProductList();
+				console.log('rs', response.data.data);
+				setProduct(response.data.data)
+
+			} catch (error) {
+				console.error(error);
+			}
+		}
+
+		callGetProductList()
+	}, [])
+
+    const { height, width } = Dimensions.get('window');
+	const itemWidth = (width - 15) / 2;
+
+	const renderItem = ({ item }) => (
+		<View style={{ width: itemWidth, flex: 1, margin: 5 }}>
+			<View style={styles.box}>
+                <View style={styles.imagebox}>
+                    <Image
+                        style={styles.image}
+                        source={{
+                            uri: item.image,
+                        }}
+                    />
+                </View>
+                <View style={styles.info}>
+                    <Text style={{ fontSize: 20, margin: 2 }}>Tshirt blackwinter</Text>
+                    <Text style={{ fontSize: 20, margin: 2 }}>$20.05</Text>
+                </View>
+            </View>
+		</View>
+	);
+
     return (
         <ScrollView style={styles.scrollView}> 
             <View style={styles.container}>
@@ -129,8 +139,18 @@ export default function Home() {
                             </TouchableOpacity>
                         </View>
                     </View>
+                    <View style={styles.cart}>
+                        <FlatList
+                            style={styles.flatList}
+                            data={product}
+                            renderItem={renderItem}
+                            keyExtractor={item => item.id}
+                            numColumns={2}
+                        />
+                    </View>
                 </View>
             </View>
+            <View style={{height: 15, width: '100%', height: '100%', backgroundColor: '#fff'}}></View>
         </ScrollView>
     )
 }
@@ -138,12 +158,14 @@ export default function Home() {
 const styles = StyleSheet.create({
     scrollView: {
         width: '100%',
+        flex: 1,
     },
     container: {
-        //chua biet viet gi
+        flex: 1,
     },
     top: {
         height: 400,
+        flex: 1,
         backgroundColor: '#fdf6e4',
         alignItems: 'center',
         justifyContent: 'center',
@@ -212,8 +234,8 @@ const styles = StyleSheet.create({
     },
     bottom: {
         backgroundColor: '#fff',
-        borderRadius: 20,
-        elevation: 20,
+        borderTopRightRadius: 20,
+        borderTopLeftRadius: 20,
         alignItems: 'center',
         flexDirection: 'column',
     },
@@ -226,13 +248,14 @@ const styles = StyleSheet.create({
     },
     box2: {
         width: '90%',
-        height: '11%',
+        height: 130,
         top: 30,
         borderRadius: 10,
         elevation: 1,
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',
+        backgroundColor: '#fff'
     },
     box2left: {
         borderRightWidth: 0.5,
@@ -265,7 +288,7 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#9DD6EB'
+        backgroundColor: '#9DD6EB',
     },
     slide2: {
         flex: 1,
@@ -277,12 +300,10 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#92BBD9'
+        backgroundColor: '#92BBD9',
     },
     content: {
         width: '100%',
-        height: 1000,
-        borderWidth: 1,
         top: 50
     },
     textContent: {
@@ -297,7 +318,7 @@ const styles = StyleSheet.create({
     },
     btnTap: {
         width: 130,
-        height:40,
+        height: 40,
         left: 5,
         borderRadius: 20,
         alignItems: 'center',
@@ -312,5 +333,37 @@ const styles = StyleSheet.create({
         color:'#e47905',
         fontWeight: 'bold',
         fontSize: 15,
+    },
+    cart: {
+        top: 20,
+        width: '100%',
+        margin: 16,
+        justifyContent: 'space-around',
+    },
+    box: {
+        width: '95%',
+        height: 250,
+        margin: 5,
+        top: 20,
+        borderRadius: 10,
+        flexDirection: 'column',
+        alignItems: 'center',
+        backgroundColor: '#fff',
+    },
+    imagebox: {
+        width: '100%',
+        height: '70%',
+    },
+    image: {
+        width: '100%',
+        height: '100%',
+        borderRadius: 10,
+    },
+    info: {
+        height: '30%',
+        justifyContent: 'center',
+    },
+    flatList: {
+        width: '100%'
     },
 })
