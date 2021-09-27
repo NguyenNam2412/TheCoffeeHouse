@@ -1,14 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { View, Image, Text, StyleSheet, ScrollView, TouchableOpacity, Dimensions ,FlatList} from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Swiper from 'react-native-swiper'
-import axios from 'axios'
-import { getImage } from '../utils'
 import { getProductList } from '../services/Api'
+import RBSheet from "react-native-raw-bottom-sheet"
+import Login from './Login'
+
 
 export default function Home() {
 
     const [product, setProduct] = useState([])
+    const refRBSheet = useRef();
 
     useEffect(() => {
 		const callGetProductList = async () => {
@@ -25,8 +27,8 @@ export default function Home() {
 		callGetProductList()
 	}, [])
 
-    const { height, width } = Dimensions.get('window');
-	const itemWidth = (width - 15) / 2;
+    const { height, width } = Dimensions.get('window')
+	const itemWidth = (width - 15) / 2
 
 	const renderItem = ({ item }) => (
 		<View style={{ width: itemWidth, flex: 1, margin: 5 }}>
@@ -60,9 +62,27 @@ export default function Home() {
                             </Text>
                         </View>
                         <View style={styles.btn1}>
-                            <TouchableOpacity>
+                            <TouchableOpacity onPress={() => refRBSheet.current.open()}>
                                 <Text style={styles.textbtn1}>Đăng nhập</Text>
                             </TouchableOpacity>
+                            <RBSheet
+                                ref={refRBSheet}
+                                closeOnDragDown={true}
+                                closeOnPressMask={true}
+                                closeOnPressBack={true}
+                                customStyles={{
+                                    container: {
+                                        borderTopLeftRadius: 20,
+                                        borderTopRightRadius: 20,
+                                        height: '100%',
+                                    },
+                                    draggableIcon: {
+                                        backgroundColor: "#000"
+                                    }
+                                }}
+                            >
+                                < Login/>
+                            </RBSheet>
                         </View>
                         <Image source={require('../assets/coffee.jpg')} style={styles.backgroundImage} />
                         <View style={styles.btn2}>
