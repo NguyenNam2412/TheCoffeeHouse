@@ -5,6 +5,7 @@ import Swiper from 'react-native-swiper'
 import { getProductList } from '../services/Api'
 import RBSheet from "react-native-raw-bottom-sheet"
 import Login from './Login'
+import Cart from './Cart'
 
 
 export default function Home() {
@@ -99,10 +100,28 @@ export default function Home() {
                     <View style={styles.box1}></View>
                     <View style={styles.box2}>
                         <View style={styles.box2left}>
-                            <TouchableOpacity style={styles.btnbox}>
+                            <TouchableOpacity style={styles.btnbox} onPress={() => refRBSheet.current.open()}>
                                 <Image source={require('../assets/ScreenshotTheCoffeeHouse1.png')} style={styles.backgroundImage} />
                                 <Text style={styles.textbtnbox}>Giao hàng</Text>
                             </TouchableOpacity>
+                            <RBSheet
+                                ref={refRBSheet}
+                                closeOnDragDown={true}
+                                closeOnPressMask={true}
+                                closeOnPressBack={true}
+                                customStyles={{
+                                    container: {
+                                        borderTopLeftRadius: 20,
+                                        borderTopRightRadius: 20,
+                                        height: '100%',
+                                    },
+                                    draggableIcon: {
+                                        backgroundColor: "#000"
+                                    }
+                                }}
+                            >
+                                < Cart/>
+                            </RBSheet>
                         </View>
                         <View style={styles.box2right}>
                             <TouchableOpacity style={styles.btnbox}>
